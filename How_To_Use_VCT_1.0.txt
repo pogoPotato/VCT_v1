@@ -1,0 +1,10 @@
+--STUPA STUDIOS-- VCT_1.0
+__HELP__
+
+Note - First place VCT in path to use..
+
+-HOW TO USE VCT VERSION CONTROL-
+1) To make a repo - vct make folder_name
+2) To make a commit and comment - vct push -m "message"
+3) To list all commit - vct show
+4) To visit commit - vct goto commit_ID
