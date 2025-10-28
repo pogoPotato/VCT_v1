@@ -19,12 +19,12 @@ fn main() {
             }
             make(&args[2]);
         }
-        "push" => {
+        "store" => {
             if args.len() < 4 || args[2] != "-m" {
-                println!("Usage: vct push -m \"message\"");
+                println!("Usage: vct store -m \"message\"");
                 return;
             }
-            push(&args[3]);
+            store(&args[3]);
         }
         "show" => show(),
         "goto" => {
@@ -53,7 +53,7 @@ fn make(project_name: &str) {
     println!("Created new project '{}' and initialized vct!", project_name);
 }
 
-fn push(message: &str) {
+fn store(message: &str) {
     let mut hasher = Sha1::new();
 
     // Hash all files recursively
@@ -76,7 +76,7 @@ fn push(message: &str) {
         .unwrap();
 
     writeln!(log_file, "{}: {}", commit_id, message).unwrap();
-    println!("Pushed! Commit ID: {}", commit_id);
+    println!("Stored! Commit ID: {}", commit_id);
 }
 
 fn visit_files(dir: &Path, hasher: &mut Sha1) {
@@ -184,8 +184,7 @@ fn restore_files(src: &Path, dest: &Path) {
         let path = entry.path();
         let relative = path.strip_prefix(src).unwrap();
         let dest_path = dest.join(relative);
-        let name = path.file_name().unwrap().to_string_lossy();
-
+        
         if path.is_file() {
             if let Some(parent) = dest_path.parent() {
                 fs::create_dir_all(parent).unwrap();
